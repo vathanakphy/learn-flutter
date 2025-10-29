@@ -1,3 +1,4 @@
+import 'package:basic/W3-S3-Theory/gradiant_button.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,55 +9,24 @@ void main() {
         padding: EdgeInsets.all(40),
         child: Column(
           children: [
-            CustomCard(text: "OOP", color: Colors.blue[100]),
-            CustomCard(text: "DART", color: Colors.blue[300]),
-            CustomCard.gradient(
-              text: "FLUTTER",
-              gradient: LinearGradient(
-                colors: [Colors.blue.shade300, Colors.blue.shade600],
-              ),
+            GradiantButton(
+              text: "Flutter",
+              start: Colors.blue,
+              stop: Colors.red,
+            ),
+            GradiantButton(
+              text: "Flutter",
+              start: Colors.blue,
+              stop: Colors.red,
+            ),
+            GradiantButton(
+              text: "Flutter",
+              start: Colors.blue,
+              stop: Colors.red,
             ),
           ],
         ),
       ),
     ),
   );
-}
-
-class CustomCard extends StatelessWidget {
-  final String text;
-  final Color? color;
-  final LinearGradient? gradient;
-
-  const CustomCard({super.key, required this.text, this.color = Colors.blue})
-    : gradient = null;
-
-  const CustomCard.gradient({
-    super.key,
-    required this.text,
-    required this.gradient,
-  }) : color = null;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      margin: const EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(
-        color: color,
-        gradient: gradient,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Center(
-        child: Text(
-          text,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 30,
-            decoration: TextDecoration.none,
-          ),
-        ),
-      ),
-    );
-  }
 }
