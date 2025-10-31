@@ -78,13 +78,13 @@ class WeatherCard extends StatelessWidget {
   AssetImage getWeatherImage() {
     switch (weatherStatus) {
       case WeatherStatus.cloudy:
-        return const AssetImage('cloudy.png'); // Example path
+        return const AssetImage('cloudy.png'); 
       case WeatherStatus.sunny:
-        return const AssetImage('sunny.png'); // Example path
+        return const AssetImage('sunny.png'); 
       case WeatherStatus.sunnyCloud:
-        return const AssetImage('sunnyCloud.png'); // Example path
+        return const AssetImage('sunnyCloud.png'); 
       case WeatherStatus.veryCloudy:
-        return const AssetImage('veryCloudy.png'); // Example path
+        return const AssetImage('veryCloudy.png'); 
     }
   }
 
@@ -190,6 +190,7 @@ class WeatherCard extends StatelessWidget {
   }
 }
 
+//AI generate Data
 final List<Weather> weatherData = [
   Weather(
     city: 'Phnom Penh',
