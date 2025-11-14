@@ -11,7 +11,8 @@ List<String> images = [
 void main() => runApp(
   MaterialApp(
     debugShowCheckedModeBanner:
-        false, // Why this line ? Can you explain it ? diable debig UI on the top right
+        false, // Why this line ? Can you explain it ?
+        // ANS: diable debig UI on the top right
     home: ImageGallery(),
   ),
 );
