@@ -5,11 +5,10 @@ Color appColor = Colors.green[300] as Color;
 
 class Exercise4Week8 {
   static void main() {
-    loadJokes();     
+    loadJokes();
     runApp(const MyApp());
   }
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -37,7 +36,6 @@ class JokeList extends StatefulWidget {
 }
 
 class _JokeListState extends State<JokeList> {
-
   void onCardClicked(int index) {
     setState(() {
       if (Joke.favouriteIndex == index) {
@@ -50,16 +48,18 @@ class _JokeListState extends State<JokeList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        for (int i = 0; i < Joke.jokeList.length; i++)
-          FavoriteCard(
-            title: Joke.jokeList[i].title,
-            description: Joke.jokeList[i].description,
-            isFavorite: Joke.favouriteIndex == i,
-            onFavoriteClick: () => onCardClicked(i),
-          ),
-      ],
+    return ListView.builder(
+      itemCount: Joke.jokeList.length,
+      itemBuilder: ListJokeCards,
+    );
+  }
+
+  Widget ListJokeCards(context, index) {
+    return FavoriteCard(
+      title: Joke.jokeList[index].title,
+      description: Joke.jokeList[index].description,
+      isFavorite: Joke.favouriteIndex == index,
+      onFavoriteClick: () => onCardClicked(index),
     );
   }
 }
