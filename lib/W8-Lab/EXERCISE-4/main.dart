@@ -22,26 +22,29 @@ class MyApp extends StatelessWidget {
           backgroundColor: appColor,
           title: const Text("Favorite Jokes"),
         ),
-        body: const JokeList(),
+        body: JokeList(jokes: loadJokes()),
       ),
     );
   }
 }
 
 class JokeList extends StatefulWidget {
-  const JokeList({super.key});
+  final List<Joke> jokes;
+
+  const JokeList({super.key, required this.jokes});
 
   @override
   State<JokeList> createState() => _JokeListState();
 }
 
 class _JokeListState extends State<JokeList> {
+  int favouriteIndex = -1;
   void onCardClicked(int index) {
     setState(() {
-      if (Joke.favouriteIndex == index) {
-        Joke.favouriteIndex = -1;
+      if (favouriteIndex == index) {
+        favouriteIndex = -1;
       } else {
-        Joke.favouriteIndex = index;
+        favouriteIndex = index;
       }
     });
   }
@@ -49,17 +52,13 @@ class _JokeListState extends State<JokeList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: Joke.jokeList.length,
-      itemBuilder: ListJokeCards,
-    );
-  }
-
-  Widget ListJokeCards(context, index) {
-    return FavoriteCard(
-      title: Joke.jokeList[index].title,
-      description: Joke.jokeList[index].description,
-      isFavorite: Joke.favouriteIndex == index,
-      onFavoriteClick: () => onCardClicked(index),
+      itemCount: widget.jokes.length,
+      itemBuilder: (context, index) => FavoriteCard(
+        title: widget.jokes[index].title,
+        description: widget.jokes[index].description,
+        isFavorite: favouriteIndex == index,
+        onFavoriteClick: () => onCardClicked(index),
+      ),
     );
   }
 }
