@@ -3,6 +3,7 @@ import 'package:uuid/uuid.dart';
 enum ExpenseType { food, travel, leisure, work }
 
 class Expense {
+  static List<Expense> listExpense = [];
   String id;
   String title;
   double amount;
