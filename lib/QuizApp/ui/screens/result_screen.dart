@@ -46,7 +46,6 @@ class ResultScreen extends StatelessWidget {
             ),
           ),
                   SizedBox(height: 30,)
-
         ],
       ),
     );
@@ -124,12 +123,9 @@ class AnswerChoice extends StatelessWidget {
                 ),
               ],
             ),
-
           );
-
         }),
       ],
-
     );
   }
 }

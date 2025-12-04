@@ -25,7 +25,7 @@ class WelcomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 150),
                 child: AppButton(
                   "Start Quiz",
-                  onTap: startQuiz, // remove const
+                  onTap: startQuiz,
                 ),
               ),
               const SizedBox(height: 20),
@@ -33,7 +33,7 @@ class WelcomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 150),
                 child: AppButton(
                   "History",
-                  onTap: hisotryQuiz, // remove const
+                  onTap: hisotryQuiz,
                 ),
               ),
             ],

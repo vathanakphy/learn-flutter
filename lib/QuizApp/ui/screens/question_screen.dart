@@ -18,7 +18,7 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuestionScreenState extends State<QuestionScreen> {
   int currentQuestionIndex = 0;
-  
+
   String? selectedAnswer;
   bool showResult = false;
 
@@ -26,17 +26,16 @@ class _QuestionScreenState extends State<QuestionScreen> {
     if (showResult) return;
     setState(() {
       selectedAnswer = answer;
-      widget.quiz.answerQuesiton(currentQuestionIndex, answer);
-      showResult = true;
     });
+    widget.quiz.answerQuesiton(currentQuestionIndex, answer);
+    showResult = true;
     Future.delayed(const Duration(milliseconds: 500), () {
-      if (!mounted) return;
       if (currentQuestionIndex < widget.quiz.questions.length - 1) {
         setState(() {
           currentQuestionIndex++;
-          selectedAnswer = null;
-          showResult = false;
         });
+        selectedAnswer = null;
+        showResult = false;
       } else {
         widget.onQuizFinished();
       }

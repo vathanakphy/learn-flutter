@@ -1,5 +1,6 @@
+import 'package:basic/QuizApp/data/quiz_repository.dart';
 import 'package:basic/QuizApp/model/quiz.dart';
-import 'package:basic/QuizApp/model/submition.dart';
+import 'package:basic/QuizApp/model/submission.dart';
 import 'package:basic/QuizApp/ui/screens/hisotry_screen.dart';
 import 'package:basic/QuizApp/ui/screens/question_screen.dart';
 import 'package:basic/QuizApp/ui/screens/result_screen.dart';
@@ -7,9 +8,9 @@ import 'package:basic/QuizApp/ui/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class QuizApp extends StatefulWidget {
-  const QuizApp({super.key, required this.quiz, required this.submitons});
+  const QuizApp({super.key, required this.quiz, required this.quizRepostiry});
   final Quiz quiz;
-  final List<Submition> submitons;
+  final QuizRepostiry quizRepostiry;
   @override
   State<QuizApp> createState() => _QuizAppState();
 }
@@ -30,7 +31,7 @@ class _QuizAppState extends State<QuizApp> {
     setState(() {
       current = Screen.result;
     });
-    widget.submitons.add(Submition.create(widget.quiz));
+    widget.quizRepostiry.submissions.add(Submission.create(widget.quiz));
   }
 
   void resultView(Quiz quiz) {
@@ -63,7 +64,7 @@ class _QuizAppState extends State<QuizApp> {
       case Screen.history:
         return HistoryScreen(
           resultView: resultView,
-          submitons: widget.submitons,
+          submitons: widget.quizRepostiry.submissions,
         );
     }
   }
