@@ -24,18 +24,21 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
   void answerQuestion(String answer) {
     if (showResult) return;
+
     setState(() {
       selectedAnswer = answer;
+      showResult = true;
     });
+
     widget.quiz.answerQuesiton(currentQuestionIndex, answer);
-    showResult = true;
+
     Future.delayed(const Duration(milliseconds: 500), () {
       if (currentQuestionIndex < widget.quiz.questions.length - 1) {
         setState(() {
           currentQuestionIndex++;
+          selectedAnswer = null;
+          showResult = false;
         });
-        selectedAnswer = null;
-        showResult = false;
       } else {
         widget.onQuizFinished();
       }

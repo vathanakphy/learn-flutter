@@ -8,9 +8,8 @@ import 'package:basic/QuizApp/ui/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class QuizApp extends StatefulWidget {
-  const QuizApp({super.key, required this.quiz, required this.quizRepostiry});
-  final Quiz quiz;
-  final QuizRepostiry quizRepostiry;
+  const QuizApp({super.key, required this.quizRepository});
+  final QuizRepostiry quizRepository;
   @override
   State<QuizApp> createState() => _QuizAppState();
 }
@@ -18,39 +17,36 @@ class QuizApp extends StatefulWidget {
 enum Screen { home, question, result, history }
 
 class _QuizAppState extends State<QuizApp> {
+  late Quiz quiz;
   Screen current = Screen.home;
 
+  @override
+  void initState() {
+    super.initState();
+    quiz = Quiz.loadQuiz(widget.quizRepository.questions);
+  }
+
   void startQuiz() {
-    setState(() {
-      current = Screen.question;
-    });
-    widget.quiz.reset();
+    quiz.reset();
+    setState(() => current = Screen.question);
   }
 
   void finishQuiz() {
-    setState(() {
-      current = Screen.result;
-    });
-    widget.quizRepostiry.submissions.add(Submission.create(widget.quiz));
+    widget.quizRepository.submissions.add(Submission.create(quiz));
+    setState(() => current = Screen.result);
   }
 
-  void resultView(Quiz quiz) {
-    setState(() {
-      current = Screen.result;
-    });
-    widget.quiz.answers = quiz.answers;
+  void resultView(Quiz quizResult) {
+    quiz.answers = quizResult.answers;
+    setState(() => current = Screen.result);
   }
 
   void backHome() {
-    setState(() {
-      current = Screen.home;
-    });
+    setState(() => current = Screen.home);
   }
 
   void history() {
-    setState(() {
-      current = Screen.history;
-    });
+    setState(() => current = Screen.history);
   }
 
   Widget renderScreen(Screen screen) {
@@ -58,13 +54,13 @@ class _QuizAppState extends State<QuizApp> {
       case Screen.home:
         return WelcomeScreen(startQuiz: startQuiz, hisotryQuiz: history);
       case Screen.question:
-        return QuestionScreen(quiz: widget.quiz, onQuizFinished: finishQuiz);
+        return QuestionScreen(quiz: quiz, onQuizFinished: finishQuiz);
       case Screen.result:
-        return ResultScreen(onRestart: backHome, quiz: widget.quiz);
+        return ResultScreen(onRestart: backHome, quiz: quiz);
       case Screen.history:
         return HistoryScreen(
           resultView: resultView,
-          submitons: widget.quizRepostiry.submissions,
+          submitons: widget.quizRepository.submissions,
         );
     }
   }
