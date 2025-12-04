@@ -24,7 +24,7 @@ class ExpenseCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Colors.blue.shade100,
+        color: Colors.white,
       ),
       padding: const EdgeInsets.all(20),
       margin: EdgeInsets.symmetric(vertical: 5),

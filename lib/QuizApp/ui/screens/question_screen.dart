@@ -48,7 +48,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
     final question = widget.quiz.questions[currentQuestionIndex];
 
     return Container(
-      color: Colors.blue.shade400,
+      color: Colors.blue.shade300,
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

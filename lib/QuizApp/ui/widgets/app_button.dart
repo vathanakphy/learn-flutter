@@ -8,6 +8,7 @@ class AppButton extends StatelessWidget {
     this.icon,
     this.color = Colors.white,
   });
+
   final Color color;
   final IconData? icon;
   final String label;
@@ -15,20 +16,20 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      icon: (icon==null)? null:Icon(icon),
-      label: Text(
-        label,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
+    return SizedBox(
+      width: double.infinity, 
+      child: ElevatedButton.icon(
+        icon: icon != null ? Icon(icon) : const SizedBox.shrink(),
+        label: Text(
+          label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
-      ),
-      onPressed: onTap,
-      style: OutlinedButton.styleFrom(
-        backgroundColor: color,
-        padding: EdgeInsets.symmetric(vertical: 20,horizontal: 30),
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+        ),
       ),
     );
   }

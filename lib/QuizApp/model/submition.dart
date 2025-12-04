@@ -1,15 +1,24 @@
 import 'package:basic/QuizApp/model/quiz.dart';
 
-class Submition {
+class Submission {
   final DateTime date;
-  final Quiz quiz; 
+  final Quiz quiz;
 
-  Submition({required this.date, required this.quiz});
+  Submission({required this.date, required this.quiz});
 
-  factory Submition.create(Quiz quiz) {
-    return Submition(
-      date: DateTime.now(),
-      quiz: quiz.clone(),
+  factory Submission.create(Quiz quiz) {
+    return Submission(date: DateTime.now(), quiz: quiz.clone());
+  }
+
+  Map<String, dynamic> toJson() => {
+    "date": date.toIso8601String(),
+    "quiz": quiz.toJson(),
+  };
+
+  factory Submission.fromJson(Map<String, dynamic> json) {
+    return Submission(
+      date: DateTime.parse(json["date"]),
+      quiz: Quiz.fromJson(json["quiz"]),
     );
   }
 }

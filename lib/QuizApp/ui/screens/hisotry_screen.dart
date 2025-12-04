@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:basic/QuizApp/model/submition.dart';
 
 class HistoryScreen extends StatelessWidget {
-  final void Function(Quiz) resultView; 
-  final List<Submition> submitons; 
+  final void Function(Quiz) resultView;
+  final List<Submission> submitons;
 
   const HistoryScreen({
     super.key,
@@ -16,7 +16,7 @@ class HistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue.shade400,
+      color: Colors.blue.shade300,
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
@@ -44,7 +44,7 @@ class HistoryScreen extends StatelessWidget {
                         ),
                         child: AppButton(
                           "$date - Score: $score/$total",
-                          onTap: ()=>resultView(sub.quiz),
+                          onTap: () => resultView(sub.quiz),
                         ),
                       );
                     },

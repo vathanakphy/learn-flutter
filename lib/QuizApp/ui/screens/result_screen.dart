@@ -14,7 +14,7 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(color: Colors.blue.shade500),
+      decoration: BoxDecoration(color: Colors.blue.shade300),
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -32,21 +32,17 @@ class ResultScreen extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemCount: quiz.answers.length,
-              itemBuilder: (context, index) => AnswerChoice(
-                answer: quiz.answers[index],
-                index: index, 
-              ),
+              itemBuilder: (context, index) =>
+                  AnswerChoice(answer: quiz.answers[index], index: index),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 150),
-            child: AppButton(
-              "Restart Quiz",
-              onTap: onRestart, 
-            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ), // smaller padding
+            child: AppButton("Restart Quiz", onTap: onRestart),
           ),
-                  SizedBox(height: 30,)
-
+          SizedBox(height: 30),
         ],
       ),
     );
@@ -70,7 +66,7 @@ class AnswerChoice extends StatelessWidget {
             children: [
               CircleNumber(
                 number: index + 1,
-                color: answer.isGood?Colors.green:Colors.red
+                color: answer.isGood ? Colors.green : Colors.red,
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -94,7 +90,7 @@ class AnswerChoice extends StatelessWidget {
               choice != answer.question.goodChoise) {
             iconData = Icons.close;
           }
-          Color iconColor = Colors.black; 
+          Color iconColor = Colors.black;
 
           if (choice == answer.question.goodChoise) {
             iconData = Icons.check;
@@ -102,7 +98,7 @@ class AnswerChoice extends StatelessWidget {
           } else if (choice == answer.selectedChoise &&
               choice != answer.question.goodChoise) {
             iconData = Icons.close;
-            iconColor = Colors.red; 
+            iconColor = Colors.red;
           }
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -119,17 +115,18 @@ class AnswerChoice extends StatelessWidget {
                 Expanded(
                   child: Text(
                     choice,
-                    style: TextStyle(fontSize: 16, color: iconColor,fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: iconColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
             ),
-
           );
-
         }),
       ],
-
     );
   }
 }
