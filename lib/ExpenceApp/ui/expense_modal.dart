@@ -11,27 +11,25 @@ class ExpenseModal extends StatefulWidget {
 }
 
 class _ExpenseModalState extends State<ExpenseModal> {
-  String title = '';
-  String amount = '';
-  DateTime? pickedDate;
-  ExpenseType pickedCategory = ExpenseType.leisure;
+  final title = TextEditingController();
+  final amount = TextEditingController();
+  @override 
+  void dispose() {
+    title.dispose();
+    amount.dispose();
+    super.dispose();
+  }
 
-  Future<void> pickDate() async {
-    final now = DateTime.now();
-    final firstDate = DateTime(now.year - 1, now.month, now.day);
-
-    final date = await showDatePicker(
-      context: context,
-      initialDate: now,
-      firstDate: firstDate,
-      lastDate: DateTime(now.year + 3, now.month, now.day),
+  void saveExpense() {
+    String enteredTitle = title.text;
+    double enteredAmount = double.tryParse(amount.text) ?? 0.0;
+    Expense newExpense = Expense.basic(
+      enteredTitle,
+      enteredAmount,
+      ExpenseType.food,
     );
-
-    if (date != null) {
-      setState(() {
-        pickedDate = date;
-      });
-    }
+    widget.onAddExpense(newExpense);
+    Navigator.pop(context);
   }
 
   @override
@@ -41,83 +39,54 @@ class _ExpenseModalState extends State<ExpenseModal> {
       child: Column(
         children: [
           TextField(
+            controller: title,
             maxLength: 50,
             decoration: const InputDecoration(label: Text('Title')),
-            onChanged: (value) => title = value,
           ),
           TextField(
+            controller: amount,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               prefixText: '\$ ',
               label: Text('Amount'),
             ),
-            onChanged: (value) => amount = value,
           ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              DropdownButton<ExpenseType>(
-                value: pickedCategory,
-                items: ExpenseType.values
-                    .map(
-                      (expenseType) => DropdownMenuItem(
-                        value: expenseType,
-                        child: Text(expenseType.name.toUpperCase()),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() {
-                      pickedCategory = value;
-                    });
-                  }
-                },
-              ),
-              const Spacer(),
-              Row(
-                children: [
-                  Text(
-                    pickedDate == null
-                        ? 'No date selected'
-                        : '${pickedDate!.day}/${pickedDate!.month}/${pickedDate!.year}',
-                  ),
-                  IconButton(
-                    onPressed: pickDate,
-                    icon: const Icon(Icons.calendar_month),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Cancel'),
-              ),
-              const SizedBox(width: 8),
-              ElevatedButton(
-                onPressed: () {
-                  if (pickedDate == null) return; 
-                  widget.onAddExpense(
-                    Expense(
-                      title,
-                      double.tryParse(amount) ?? 0,
-                      pickedDate!,
-                      pickedCategory,
-                    ),
-                  );
-                  Navigator.pop(context);
-                },
-                child: const Text('Save Expense'),
-              ),
-            ],
+          ElevatedButton(
+            onPressed: () {
+              saveExpense();
+            },
+            child: const Text('Save Expense'),
           ),
         ],
       ),
+    );
+  }
+}
+
+class DialogEmpty extends StatelessWidget {
+  const DialogEmpty({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Invalid Input'),
+          content: const Text('Please enter a valid title and amount.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      ),
+      child: const Text('Show Dialog'),
     );
   }
 }
