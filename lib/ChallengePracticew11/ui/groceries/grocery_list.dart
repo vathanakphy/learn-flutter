@@ -1,3 +1,4 @@
+import 'package:basic/ChallengePracticew11/ui/groceries/grocery_form.dart';
 import 'package:flutter/material.dart';
 import '../../data/mock_grocery_repository.dart';
 import '../../models/grocery.dart';
@@ -10,8 +11,15 @@ class GroceryList extends StatefulWidget {
 }
 
 class _GroceryListState extends State<GroceryList> {
-  void onCreate() {
+  Future<void> onCreate() async {
+    print("object");
     // TODO-4 - Navigate to the form screen using the Navigator push
+    final Grocery? newItem = await Navigator.of(
+      context,
+    ).push<Grocery>(MaterialPageRoute(builder: (ctx) => const NewItem()));
+    setState(() {
+      dummyGroceryItems.add(newItem!);
+    });
   }
 
   @override
@@ -30,7 +38,7 @@ class _GroceryListState extends State<GroceryList> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Groceries'),
-        actions: [IconButton(onPressed: () => {}, icon: const Icon(Icons.add))],
+        actions: [IconButton(onPressed: onCreate, icon: const Icon(Icons.add))],
       ),
       body: content,
     );
@@ -45,8 +53,8 @@ class GroceryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //  2 - Display groceries with an Item builder and  LIst Tile
-    return  ListTile(
-      leading: Container(width: 15, height: 15, color:grocery.category.color,),
+    return ListTile(
+      leading: Container(width: 15, height: 15, color: grocery.category.color),
       title: Text(grocery.name),
       trailing: Text(grocery.quantity.toString()),
     );

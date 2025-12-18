@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../models/grocery.dart';
 
@@ -12,7 +13,6 @@ class NewItem extends StatefulWidget {
 }
 
 class _NewItemState extends State<NewItem> {
-
   // Default settings
   static const defautName = "New grocery";
   static const defaultQuantity = 1;
@@ -46,7 +46,14 @@ class _NewItemState extends State<NewItem> {
   }
 
   void onAdd() {
-    // Will be implemented later - Create and return the new grocery
+    Navigator.of(context).pop(
+      Grocery(
+        id: const Uuid().v1(),
+        name: _nameController.text,
+        quantity: int.tryParse(_quantityController.text) ?? 1,
+        category: _selectedCategory,
+      ),
+    );
   }
 
   @override
@@ -76,7 +83,24 @@ class _NewItemState extends State<NewItem> {
                 Expanded(
                   child: DropdownButtonFormField<GroceryCategory>(
                     initialValue: _selectedCategory,
-                    items: [  ],
+                    items: GroceryCategory.values
+                        .map(
+                          (c) => DropdownMenuItem<GroceryCategory>(
+                            value: c,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 15,
+                                  height: 15,
+                                  color: c.color,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(c.name),
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList(),
                     onChanged: (value) {
                       if (value != null) {
                         setState(() {
@@ -93,10 +117,7 @@ class _NewItemState extends State<NewItem> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(onPressed: onReset, child: const Text('Reset')),
-                ElevatedButton(
-                  onPressed: onAdd,
-                  child: const Text('Add Item'),
-                ),
+                ElevatedButton(onPressed: onAdd, child: const Text('Add Item')),
               ],
             ),
           ],
