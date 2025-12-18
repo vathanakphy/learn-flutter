@@ -73,15 +73,14 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                   child: ListView.builder(
                     itemCount: _expenses.length,
                     itemBuilder: (ctx, index) => Dismissible(
-                      key: ValueKey(_expenses[index]),
+                      key: ValueKey(_expenses[index].id),
                       child: ExpenseItem(expense: _expenses[index]),
-                      onDismissed: (direction) {
+                      onDismissed: (DismissDirection direction) {
                         Expense removedExpense = _expenses[index];
                         setState(() {
                           _expenses.removeAt(index);
                         });
                         final messenger = ScaffoldMessenger.of(context);
-
                         messenger.clearSnackBars();
                         messenger.showSnackBar(
                           SnackBar(

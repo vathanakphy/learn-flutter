@@ -1,4 +1,3 @@
-import 'package:basic/ExpenceApplication/ui/expenses/expence_selection.dart';
 import 'package:basic/ExpenceApplication/ui/expenses/expense_date_picker.dart';
 import 'package:flutter/material.dart';
 import '../../models/expense.dart';
@@ -27,7 +26,7 @@ class _ExpenseFormState extends State<ExpenseForm> {
     String title = _titleController.text.trim();
     double? amount = double.tryParse(_amountController.text.trim());
 
-    String? message; 
+    String? message;
 
     if (title.isEmpty) {
       message = "Title cannot be empty.";
@@ -100,14 +99,21 @@ class _ExpenseFormState extends State<ExpenseForm> {
             ],
           ),
           Text("Select Category:"),
-          ExpenseSelection(
-            list: [
-              Category.food,
-              Category.travel,
-              Category.leisure,
-              Category.work,
-            ],
-            onChanged: (value) => {_categorySelected = value},
+          DropdownButtonFormField<Category>(
+            initialValue: _categorySelected,
+            items: Category.values
+                .map(
+                  (c) =>
+                      DropdownMenuItem<Category>(value: c, child: Text(c.name)),
+                )
+                .toList(),
+            onChanged: (value) {
+              if (value != null) {
+                setState(() {
+                  _categorySelected = value;
+                });
+              }
+            },
           ),
           SizedBox(height: 10),
           ElevatedButton(onPressed: onCancel, child: Text("Cancel")),
