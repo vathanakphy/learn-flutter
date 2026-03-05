@@ -1,0 +1,71 @@
+// song_repository_mock.dart
+
+import '../../../model/songs/song.dart';
+import 'song_repository.dart';
+
+class SongRepositoryMock implements SongRepository {
+final List<Song> _songs = [
+    Song(
+      id: '101',
+      title: 'Mock Song 1',
+      artist: 'Mock Artist',
+      duration: const Duration(minutes: 2, seconds: 50),
+    ),
+    Song(
+      id: '102',
+      title: 'Mock Song 2',
+      artist: 'Mock Artist',
+      duration: const Duration(minutes: 3, seconds: 20),
+    ),
+    Song(
+      id: '103',
+      title: 'Mock Song 3',
+      artist: 'Mock Artist',
+      duration: const Duration(minutes: 4, seconds: 0),
+    ),
+    Song(
+      id: '104',
+      title: 'Mock Song 4',
+      artist: 'Mock Artist',
+      duration: const Duration(minutes: 3, seconds: 15),
+    ),
+    Song(
+      id: '105',
+      title: 'Mock Song 5',
+      artist: 'Mock Artist',
+      duration: const Duration(minutes: 2, seconds: 45),
+    ),
+    Song(
+      id: '106',
+      title: 'Mock Song 6',
+      artist: 'Mock Artist',
+      duration: const Duration(minutes: 3, seconds: 30),
+    ),
+    Song(
+      id: '107',
+      title: 'Mock Song 7',
+      artist: 'Mock Artist',
+      duration: const Duration(minutes: 4, seconds: 10),
+    ),
+    Song(
+      id: '108',
+      title: 'Mock Song 8',
+      artist: 'Mock Artist',
+      duration: const Duration(minutes: 3, seconds: 5),
+    ),
+  ];
+
+  @override
+  List<Song> fetchSongs() {
+    return _songs;
+  }
+
+  @override
+  Song? fetchSongById(String id) {
+    try {
+      return _songs.firstWhere((song) => song.id == id);
+    } catch (_) {
+      return null;
+    }
+  }
+}
