@@ -1,0 +1,44 @@
+import 'package:basic/listsong/model/artists/artists.dart';
+import 'package:flutter/material.dart';
+
+import '../../../model/songs/song.dart';
+
+class SongTile extends StatelessWidget {
+  const SongTile({
+    super.key,
+    required this.song,
+    required this.isPlaying,
+    required this.onTap,
+    required this.songArtist,
+  });
+
+  final Song song;
+  final bool isPlaying;
+  final VoidCallback onTap;
+  final Artists? songArtist;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: ListTile(
+          leading: CircleAvatar(
+            foregroundImage: NetworkImage(song.imageUrl.toString()),
+          ),
+          onTap: onTap,
+          title: Text(song.title),
+          subtitle: Text("${song.duration.inMinutes} mins ${songArtist?.name ?? 'Unknown'}- ${songArtist?.genre ?? 'Unknown'}"),
+          trailing: Text(
+            isPlaying ? "Playing" : "",
+            style: TextStyle(color: Colors.amber),
+          ),
+        ),
+      ),
+    );
+  }
+}

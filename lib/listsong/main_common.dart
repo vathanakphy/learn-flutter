@@ -1,3 +1,4 @@
+import 'package:basic/listsong/ui/screens/artists/artists_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'ui/screens/library/library_screen.dart';
@@ -16,6 +17,7 @@ void mainCommon(List<InheritedProvider> providers) {
     ),
   );
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -24,9 +26,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
 
-  final List<Widget> _pages = [LibraryScreen(), SettingsScreen()];
+  final List<Widget> _pages = [
+    LibraryScreen(),
+    ArtistsScreen(),
+    SettingsScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +59,7 @@ class _MyAppState extends State<MyApp> {
               icon: Icon(Icons.library_music),
               label: 'Library',
             ),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Artists'),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: 'Settings',
