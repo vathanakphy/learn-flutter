@@ -30,4 +30,31 @@ class SongRepositoryFirebase extends SongRepository {
 
   @override
   Future<Song?> fetchSongById(String id) async {}
+
+  @override
+  Future<Song?> likeSong(Song song) async {
+    final songWithIDUri = baseUri.replace(path: '/songs/${song.id}.json');
+    final Map<String, int> payload = {"likes": song.totalLike + 1};
+
+    final http.Response response = await http.patch(
+      songWithIDUri,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(payload),
+    );
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> bodyJson = json.decode(response.body);
+      // Return updated song
+      return Song(
+        id: song.id,
+        title: song.title,
+        artistId: song.artistId,
+        imageUrl: song.imageUrl,
+        totalLike: bodyJson['likes'] ?? song.totalLike,
+        duration: song.duration,
+      );
+    } else {
+      throw Exception('Failed to like song: ${response.statusCode}');
+    }
+  }
 }

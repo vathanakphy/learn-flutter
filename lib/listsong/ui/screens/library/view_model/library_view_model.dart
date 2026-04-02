@@ -13,7 +13,6 @@ class LibraryViewModel extends ChangeNotifier {
 
   AsyncValue<List<Song>> songsValue = AsyncValue.loading();
   AsyncValue<Map<String, Artists>> artistsValue = AsyncValue.loading();
-
   LibraryViewModel({
     required this.songRepository,
     required this.playerState,
@@ -66,6 +65,26 @@ class LibraryViewModel extends ChangeNotifier {
   Artists? songArtist(Song song) => artistsValue.data?[song.artistId];
 
   bool isSongPlaying(Song song) => playerState.currentSong == song;
+  Future<void> onLike(Song song) async {
+    try {
+      final updatedSong = await songRepository.likeSong(song);
+      if (updatedSong == null) return;
+      final currentSongs = songsValue.data;
+      if (currentSongs == null) return;
+
+      final updatedList = currentSongs.map((s) {
+        if (s.id == song.id) {
+          return updatedSong;
+        }
+        return s;
+      }).toList();
+
+      songsValue = AsyncValue.success(updatedList);
+    } catch (e) {
+      songsValue = AsyncValue.error(e);
+    }
+    notifyListeners();
+  }
 
   void start(Song song) => playerState.start(song);
   void stop(Song song) => playerState.stop();

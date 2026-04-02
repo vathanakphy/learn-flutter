@@ -31,43 +31,93 @@
       "title": "Time to Rise for Ronan",
       "duration": 210000,
       "artistId": "artist_1",
-      "imageUrl": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&h=300&fit=crop&q=80"
+      "imageUrl": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=300&h=300&fit=crop&q=80",
+      "commentIds": [
+        "comment_1",
+        "comment_2"
+      ],
+      "likes": 120
     },
     "song_2": {
       "title": "Khmer & Ronan Bloods",
       "duration": 185000,
       "artistId": "artist_1",
-      "imageUrl": "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=300&h=300&fit=crop&q=80"
+      "imageUrl": "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=300&h=300&fit=crop&q=80",
+      "commentIds": [
+        "comment_3"
+      ],
+      "likes": 95
     },
     "song_3": {
       "title": "Besdong Online with Ronan",
       "duration": 200000,
       "artistId": "artist_2",
-      "imageUrl": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop&q=80"
+      "imageUrl": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&h=300&fit=crop&q=80",
+      "commentIds": [],
+      "likes": 60
     },
     "song_4": {
       "title": "Silent Love and Ronan",
       "duration": 230000,
       "artistId": "artist_2",
-      "imageUrl": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop&q=80"
+      "imageUrl": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop&q=80",
+      "commentIds": [
+        "comment_4"
+      ],
+      "likes": 150
     },
     "song_5": {
       "title": "Ronan Life Cycle",
       "duration": 240000,
       "artistId": "artist_3",
-      "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop&q=80"
+      "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop&q=80",
+      "commentIds": [],
+      "likes": 45
     },
     "song_6": {
       "title": "Chnam Oun",
       "duration": 215000,
       "artistId": "artist_4",
-      "imageUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=300&fit=crop&q=80"
+      "imageUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&h=300&fit=crop&q=80",
+      "commentIds": [
+        "comment_5"
+      ],
+      "likes": 200
     },
     "song_7": {
       "title": "City Lights Phnom Penh and Ronan",
       "duration": 195000,
       "artistId": "artist_5",
-      "imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=300&h=300&fit=crop&q=80"
+      "imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=300&h=300&fit=crop&q=80",
+      "commentIds": [],
+      "likes": 80
+    }
+  },
+  "comments": {
+    "comment_1": {
+      "songId": "song_1",
+      "content": "🔥 This song is fire!",
+      "createdAt": "2026-03-30T09:00:00Z"
+    },
+    "comment_2": {
+      "songId": "song_1",
+      "content": "Repeat all day",
+      "createdAt": "2026-03-30T09:05:00Z"
+    },
+    "comment_3": {
+      "songId": "song_2",
+      "content": "Beat goes hard",
+      "createdAt": "2026-03-30T09:10:00Z"
+    },
+    "comment_4": {
+      "songId": "song_4",
+      "content": "Chill vibe 🔥",
+      "createdAt": "2026-03-30T09:15:00Z"
+    },
+    "comment_5": {
+      "songId": "song_6",
+      "content": "Classic song",
+      "createdAt": "2026-03-30T09:20:00Z"
     }
   }
 }
