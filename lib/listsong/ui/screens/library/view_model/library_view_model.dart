@@ -30,10 +30,10 @@ class LibraryViewModel extends ChangeNotifier {
   }
 
   void _init() async {
-    fetchSong();
+    await fetchSong();
   }
 
-  void fetchSong() async {
+  Future<void> fetchSong({bool forceFetch = false}) async {
     // 1- Loading state
     songsValue = AsyncValue.loading();
     artistsValue = AsyncValue.loading();
@@ -41,13 +41,16 @@ class LibraryViewModel extends ChangeNotifier {
 
     try {
       // 2- Fetch is successfull
-      List<Song> songs = await songRepository.fetchSongs();
+      List<Song> songs = await songRepository.fetchSongs(
+        forceFetch: forceFetch,
+      );
       Map<String, Artists> artistsMap = {};
       songsValue = AsyncValue.success(songs);
 
       for (var song in songs) {
         Artists? songArtist = await artistsRepository.fetchArtistById(
           song.artistId,
+          forceFetch: forceFetch,
         );
         if (songArtist != null) {
           artistsMap[song.artistId] = songArtist;
@@ -88,4 +91,8 @@ class LibraryViewModel extends ChangeNotifier {
 
   void start(Song song) => playerState.start(song);
   void stop(Song song) => playerState.stop();
+
+  Future<void> refresh() async {
+    await fetchSong(forceFetch: true);
+  }
 }

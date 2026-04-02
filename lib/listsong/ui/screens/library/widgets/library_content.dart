@@ -51,10 +51,24 @@ class LibraryContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 16),
-          Text("Library", style: AppTextStyles.heading),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Library", style: AppTextStyles.heading),
+              SizedBox(width: 16),
+              IconButton(
+                icon: Icon(Icons.refresh),
+                onPressed: () => mv.refresh(),
+              ),
+            ],
+          ),
           SizedBox(height: 50),
-
-          Expanded(child: content),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () => mv.refresh(),
+              child: content,
+            ),
+          ),
         ],
       ),
     );

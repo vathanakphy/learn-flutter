@@ -11,17 +11,24 @@ class SongRepositoryFirebase extends SongRepository {
     'mobile-g3-default-rtdb.asia-southeast1.firebasedatabase.app',
   );
   static Uri songsUri = baseUri.replace(path: '/songs.json');
+  List<Song>? _cachedSongs;
 
   @override
-  Future<List<Song>> fetchSongs() async {
+  Future<List<Song>> fetchSongs({bool forceFetch = false}) async {
+    if (!forceFetch && _cachedSongs != null) {
+      print("hit cache");
+      return _cachedSongs!;
+    }
+
     final http.Response response = await http.get(songsUri);
 
     if (response.statusCode == 200) {
       // 1 - Send the retrieved list of songs
       Map<String, dynamic> bodyJson = json.decode(response.body);
-      return bodyJson.entries
+      _cachedSongs = bodyJson.entries
           .map((e) => SongDto.fromJson(e.key, e.value))
           .toList();
+      return _cachedSongs!;
     } else {
       // 2- Throw expcetion if any issue
       throw Exception('Failed to load posts');
@@ -29,7 +36,17 @@ class SongRepositoryFirebase extends SongRepository {
   }
 
   @override
-  Future<Song?> fetchSongById(String id) async {}
+  Future<Song?> fetchSongById(String id, {bool forceFetch = false}) async {
+    // 1. Return cache if available and not forcing fetch
+    if (!forceFetch && _cachedSongs != null) {
+      try {
+        return _cachedSongs!.firstWhere((song) => song.id == id);
+      } catch (e) {
+        // Not found, continue fetching if needed
+      }
+    }
+    return null;
+  }
 
   @override
   Future<Song?> likeSong(Song song) async {
